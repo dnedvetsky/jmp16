@@ -46,8 +46,6 @@ public class MockitoTest {
 
         assertEquals(noteEntryMockery.getEntry(), new NoteEntry("10/10/2015", "text", "text").getEntry());
 
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, 1);
         when(notebookHelperMockery.printAndSearchNotesByTag("tag"))
                 .thenReturn("Tag: tag, Text: tag");
 
