@@ -13,6 +13,7 @@ import java.util.Map;
 public class NotebookHelper {
     DBMethods methods = new DBMethods();
     private Map<String, String> searchCondigion = new HashMap<>();
+    private String foundEntry = "";
 
     public void addNote(String noteTag, String noteText) {
         System.out.println();
@@ -28,25 +29,37 @@ public class NotebookHelper {
         searchCondigion.clear();
     }
 
-    public NotebookHelper printNotesViaSearch() {
+    public String printAndSearchNotesByTag(String tag) {
+        return this.buildSearchCondition("tag", tag).printNotesViaSearch();
+    }
+
+    public String printNotesViaSearch() {
         System.out.println("Printing");
+        foundEntry = "";
         try (MongoCursor<Document> cursor = methods.getFromDB(searchCondigion)) {
             while (cursor.hasNext()) {
                 Document document = cursor.next();
-                System.out.println(String.format("Date: %s, Tag: %s, Text: %s", document.get("timestamp"), document.get("tag"), document.get("text")));
+                foundEntry += String.format("Tag: %s, Text: %s", document.get("tag"), document.get("text"));
+                if (cursor.hasNext()) foundEntry += "\n";
             }
+            System.out.println(foundEntry);
+
         }
-        return this;
+        return foundEntry;
     }
 
-    public void printAllNotes() {
-        System.out.println();
+    public String printAllNotes() {
+        System.out.println("All notes:");
+        foundEntry = "";
         try (MongoCursor<Document> cursor = methods.getFromDB()) {
             while (cursor.hasNext()) {
                 Document document = cursor.next();
-                System.out.println(String.format("Date: %s, Tag: %s, Text: %s", document.get("timestamp"), document.get("tag"), document.get("text")));
+                foundEntry += String.format("Date: %s, Tag: %s, Text: %s\n", document.get("timestamp"), document.get("tag"), document.get("text"));
             }
+            System.out.println(foundEntry);
+
         }
+        return foundEntry;
 
     }
 

@@ -1,9 +1,6 @@
-This is a simple application:
-Uses 1, 2, 3, 4 to iterate through commands for getting, removing and etc.
+This application used JMP15 app results with some changes to make methods more mokable.
 
-Features:
-Buildable search  criteria via maps
-Finding and deleting an entry
-Adding an entry
+HelperTests can be executed via mvn test;
 
-Timestamp generated when entry added to notebook
+MockitoTest actually used for mocking - it features a set of simple assertions with mocked object and assertion of mongodb results;
+As in jmp15 mongod should be started before any verification might be performed;

@@ -12,7 +12,6 @@ public class Main {
     private static final NotebookHelper helper = new NotebookHelper();
 
     public static void main(String[] args) {
-        helper.deleteAllNotes();
         do {
             System.out.println();
             System.out.println("Please specify an option you wish with your notepad: \n " +
